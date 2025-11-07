@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Room - <%=hoteldata.name%> Hotel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <h1 class="text-3xl font-playfair font-bold text-amber-800"><%=hoteldata.name%></h1>
+                </div>
+                <a href="/" class="text-gray-700 hover:text-amber-800 transition flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Progress Steps -->
+        <div class="mb-8">
+            <div class="flex items-center justify-center">
+                <div class="flex items-center">
+                    <div class="flex items-center text-amber-800 relative">
+                        <div class="rounded-full h-12 w-12 flex items-center justify-center bg-amber-800 text-white font-bold">1</div>
+                        <span class="ml-3 font-medium">Room Details</span>
+                    </div>
+                    <div class="w-24 h-1 bg-gray-300 mx-4"></div>
+                    <div class="flex items-center text-gray-400 relative">
+                        <div class="rounded-full h-12 w-12 flex items-center justify-center bg-gray-300 text-white font-bold">2</div>
+                        <span class="ml-3 font-medium">Guest Info</span>
+                    </div>
+                    <div class="w-24 h-1 bg-gray-300 mx-4"></div>
+                    <div class="flex items-center text-gray-400 relative">
+                        <div class="rounded-full h-12 w-12 flex items-center justify-center bg-gray-300 text-white font-bold">3</div>
+                        <span class="ml-3 font-medium">Payment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<form action="/bookingstatus" method="post">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column - Booking Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    
+                    <!-- Room Selection -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Select Your Room</h2>
+                        
+                        <div class="space-y-4">
+                            <!-- Deluxe Suite -->
+                            <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-amber-800 transition">
+                                <input type="radio" name="room" value="Deluxe Suite" class="mt-1 text-amber-800 focus:ring-amber-800" checked>
+                                <div class="ml-4 flex-1">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h3 class="font-bold text-gray-900 text-lg">Deluxe Suite</h3>
+                                            <p class="text-gray-600 text-sm mt-1">King Bed • Ocean View • Private Balcony</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-2xl font-bold text-amber-800"><%=hoteldata.currency%>3,000</p>
+                                            <p class="text-sm text-gray-600">per night</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Royal Executive -->
+                            <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-amber-800 transition">
+                                <input type="radio" name="room" value="Royal Executive" class="mt-1 text-amber-800 focus:ring-amber-800">
+                                <div class="ml-4 flex-1">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h3 class="font-bold text-gray-900 text-lg">Royal Executive</h3>
+                                            <p class="text-gray-600 text-sm mt-1">Two Rooms • Living Area • Premium Amenities</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-2xl font-bold text-amber-800"><%=hoteldata.currency%>5,000</p>
+                                            <p class="text-sm text-gray-600">per night</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Presidential Suite -->
+                            <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-amber-800 transition">
+                                <input type="radio" name="room" value="Presidential Suite" class="mt-1 text-amber-800 focus:ring-amber-800">
+                                <div class="ml-4 flex-1">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <h3 class="font-bold text-gray-900 text-lg">Presidential Suite</h3>
+                                            <p class="text-gray-600 text-sm mt-1">Panoramic Views • Private Butler • Luxury Spa</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-2xl font-bold text-amber-800"><%=hoteldata.currency%>10,000</p>
+                                            <p class="text-sm text-gray-600">per night</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Date Selection -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Select Dates</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Check-in Date</label>
+                                <input type="date" name="checkin" id="checkinDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Check-out Date</label>
+                                <input type="date" name="checkout" id="checkoutDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Guest Details -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Guest Details</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Number of Adults</label>
+                                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" name="adults">
+                                    <option value="1">1 Adult</option>
+                                    <option value="2" selected>2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Number of Children</label>
+                                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" name="children">
+                                    <option value="0" selected>No Children</option>
+                                    <option value="1">1 Child</option>
+                                    <option value="2">2 Children</option>
+                                    <option value="3">3 Children</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Information -->
+                     <% if(user){  %>
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Contact Information</h2>
+                        
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">First Name</label>
+                                    <input type="text" name="fname" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" value="<%=user.fname%>" required>
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Last Name</label>
+                                    <input type="text" name="lname" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" value="<%=user.lname%>" required>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Email Address</label>
+                                <input type="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" value="<%= user.email%>" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                                <input type="tel" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" value="<%=user.phone%>" required>
+                            </div>
+                        </div>
+                    </div>
+                    <%}else{%>
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Contact Information</h2>
+                            
+                            <div class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-gray-700 font-medium mb-2">First Name</label>
+                                        <input type="text" name="fname" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200"  required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray-700 font-medium mb-2">Last Name</label>
+                                        <input type="text" name="lname" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200"  required>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Email Address</label>
+                                    <input type="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200"  required>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-700 font-medium mb-2">Phone Number</label>
+                                    <input type="tel" name="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200"  required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <%}%>
+
+
+                    <!-- Special Requests -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Special Requests</h2>
+                        <textarea rows="4" name="special_requests" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" placeholder="Any special requests or preferences? (Optional)"></textarea>
+                    </div>
+
+                    <!-- Add-ons -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Additional Services</h2>
+                        
+                        <div class="space-y-3">
+                            <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                
+                                <input type="checkbox" name="Airport_pickup" class="w-5 h-5 text-amber-800 border-gray-300 rounded focus:ring-amber-800">
+                                <div class="ml-4 flex-1 flex justify-between items-center">
+                                    <span class="text-gray-700">Airport Pickup</span>
+                                    <span class="font-semibold text-gray-900">+<%=hoteldata.currency%>1,999</span>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                                
+                                <input type="checkbox" name="Breakfast_package" class="w-5 h-5 text-amber-800 border-gray-300 rounded focus:ring-amber-800">
+                                <div class="ml-4 flex-1 flex justify-between items-center">
+                                    <span class="text-gray-700">Breakfast Package (per day)</span>
+                                    <span class="font-semibold text-gray-900">+<%=hoteldata.currency%>1199</span>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+                               
+                                <input type="checkbox" name="Spa_treatment" class="w-5 h-5 text-amber-800 border-gray-300 rounded focus:ring-amber-800">
+                                <div class="ml-4 flex-1 flex justify-between items-center">
+                                    <span class="text-gray-700">Spa Treatment</span>
+                                    <span class="font-semibold text-gray-900">+<%=hoteldata.currency%>2,499</span>
+                                </div>
+                            </label>
+                            
+                            <label class="flex items-center p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50">
+
+                                <input type="checkbox" name="Early_check_in" class="w-5 h-5 text-amber-800 border-gray-300 rounded focus:ring-amber-800">
+                                <div class="ml-4 flex-1 flex justify-between items-center">
+                                    <span class="text-gray-700">Early Check-in (2 PM)</span>
+                                    <span class="font-semibold text-gray-900">+<%=hoteldata.currency%>999</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+            <input type="hidden" name="roomcharge" id="hid1" value="0">
+            <input type="hidden" name="additionalcharges" id="hid2" value="0">
+            <input type="hidden" name="taxes" id="hid3" value="0">
+            <input type="hidden" name="totalamount" id="hid4" value="0">
+            <input type="hidden" name="nights" id="hid5" value="0">
+
+            <!-- Right Column - Booking Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6 sticky top-24">
+                    <h3 class="text-xl font-playfair font-bold text-gray-900 mb-6">Booking Summary</h3>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div class="flex justify-between text-gray-700">
+                            <span>Room Type</span>
+                            <span class="font-semibold" id="roomType">Deluxe Suite</span>
+                        </div>
+                        
+                        <div class="flex justify-between text-gray-700">
+                            <span>Check-in</span>
+                            <span class="font-semibold" id="summaryCheckin">-</span>
+                        </div>
+                        
+                        <div class="flex justify-between text-gray-700">
+                            <span>Check-out</span>
+                            <span class="font-semibold" id="summaryCheckout">-</span>
+                        </div>
+                        
+                        <div class="flex justify-between text-gray-700">
+                            <span>Number of Nights</span>
+                            <span class="font-semibold" id="nights">0</span>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <div class="flex justify-between text-gray-700 mb-2">
+                                <span>Room Charges</span>
+                                <span class="font-semibold" id="roomCharges"><%=hoteldata.currency%>0</span>
+                            </div>
+                            
+                            <div class="flex justify-between text-gray-700 mb-2">
+                                <span>Additional Services</span>
+                                <span class="font-semibold" id="addons"><%=hoteldata.currency%>0</span>
+                            </div>
+                            
+                            <div class="flex justify-between text-gray-700 mb-2">
+                                <span>Taxes & Fees (<%=hoteldata.taxrate + hoteldata.servicecharge %>%)</span>
+                                <span class="font-semibold" id="taxes"><%=hoteldata.currency%>0</span>
+                            </div>
+                        </div>
+                        
+                        <div class="border-t-2 border-amber-800 pt-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-bold text-gray-900">Total Amount</span>
+                                <span class="text-2xl font-bold text-amber-800" id="totalAmount"><%=hoteldata.currency%>0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Important Info -->
+                    <div class="bg-amber-50 border-l-4 border-amber-800 p-4 mb-6">
+                        <h4 class="font-bold text-gray-900 mb-2">Important Information</h4>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• Check-in: 3:00 PM</li>
+                            <li>• Check-out: 11:00 AM</li>
+                            <li>• Free cancellation up to 24 hours before check-in</li>
+                        </ul>
+                    </div>
+
+                    <button onclick="proceedToPayment()" type="submit" class="w-full bg-amber-800 text-white py-4 rounded-lg hover:bg-amber-900 transition font-semibold shadow-lg">
+                        Proceed to Payment
+                    </button>
+
+                    <p class="text-xs text-gray-500 text-center mt-4">By proceeding, you agree to our Terms & Conditions</p>
+                </div>
+            </div>
+
+        </div>
+</form>
+    </div>
+
+    <script>
+        // Room prices - MUST match radio button values exactly
+        const roomPrices = {
+            'Deluxe Suite': 3000,        // lowercase 's' in suite
+            'Royal Executive': 5000,
+            'Presidential Suite': 10000   // uppercase 'S' in Suite
+        };
+    
+        const roomNames = {
+            'Deluxe Suite': 'Deluxe Suite',
+            'Royal Executive': 'Royal Executive',
+            'Presidential Suite': 'Presidential Suite'
+        };
+    
+        // Calculate nights between dates
+        function calculateNights() {
+            const checkin = document.getElementById('checkinDate').value;
+            const checkout = document.getElementById('checkoutDate').value;
+            
+            if (checkin && checkout) {
+                const date1 = new Date(checkin);
+                const date2 = new Date(checkout);
+                const diffTime = Math.abs(date2 - date1);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            }
+            return 0;
+        }
+    
+        // Update summary
+        function updateSummary() {
+            const selectedRoom = document.querySelector('input[name="room"]:checked').value;
+            const roomPrice = roomPrices[selectedRoom];
+            const nights = calculateNights();
+            
+            // Debug: Check if roomPrice is found
+            if (!roomPrice) {
+                console.error('Room price not found for:', selectedRoom);
+                return;
+            }
+            
+            // Update room type
+            document.getElementById('roomType').textContent = roomNames[selectedRoom];
+            
+            // Update dates
+            const checkin = document.getElementById('checkinDate').value;
+            const checkout = document.getElementById('checkoutDate').value;
+            document.getElementById('summaryCheckin').textContent = checkin || '-';
+            document.getElementById('summaryCheckout').textContent = checkout || '-';
+            document.getElementById('nights').textContent = nights;
+            
+            // Calculate charges
+            const roomCharges = roomPrice * nights;
+            
+            // Calculate addons
+            let addonTotal = 0;
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                const priceText = checkbox.closest('label').querySelector('.font-semibold').textContent;
+                
+                if(priceText=='+<%=hoteldata.currency%>1199'){
+                    const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+                    addonTotal += nights*price;
+                }
+                else{
+                    const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+                    addonTotal += price;
+                }
+                
+            });
+            
+            // Calculate taxes
+            const subtotal = roomCharges + addonTotal;
+            const taxes = subtotal * 0.<%=hoteldata.taxrate + hoteldata.servicecharge %> ;
+            
+            // Calculate total
+            const total = subtotal + taxes;
+            
+            // Update display
+            document.getElementById('roomCharges').textContent = '<%=hoteldata.currency%>' + roomCharges.toFixed(0);
+            document.getElementById('hid1').value =  roomCharges.toFixed(0);
+
+            document.getElementById('addons').textContent = '<%=hoteldata.currency%>' + addonTotal.toFixed(0);
+            document.getElementById('hid2').value = addonTotal.toFixed(0);
+
+            document.getElementById('taxes').textContent = '<%=hoteldata.currency%>' + taxes.toFixed(0);
+            document.getElementById('hid3').value = taxes.toFixed(0);
+
+            document.getElementById('totalAmount').textContent = '<%=hoteldata.currency%>' + total.toFixed(0);
+            document.getElementById('hid4').value =  total.toFixed(0);
+
+            document.getElementById('hid5').value = calculateNights();
+        }
+    
+        // Event listeners
+        document.querySelectorAll('input[name="room"]').forEach(radio => {
+            radio.addEventListener('change', updateSummary);
+        });
+    
+        document.getElementById('checkinDate').addEventListener('change', updateSummary);
+        document.getElementById('checkoutDate').addEventListener('change', updateSummary);
+    
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateSummary);
+        });
+    
+        // Set minimum dates
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('checkinDate').setAttribute('min', today);
+        document.getElementById('checkoutDate').setAttribute('min', today);
+    
+        // Update checkout min date when checkin changes
+        document.getElementById('checkinDate').addEventListener('change', function() {
+            const checkinDate = new Date(this.value);
+            checkinDate.setDate(checkinDate.getDate() + 1);
+            document.getElementById('checkoutDate').setAttribute('min', checkinDate.toISOString().split('T')[0]);
+        });
+    
+        // Proceed to payment
+        function proceedToPayment() {
+            const checkin = document.getElementById('checkinDate').value;
+            const checkout = document.getElementById('checkoutDate').value;
+            
+            if (!checkin || !checkout) {
+                alert('Please select check-in and check-out dates');
+                return;
+            }
+            
+            if (calculateNights() < 1) {
+                alert('Check-out date must be after check-in date');
+                return;
+            }
+            
+            alert('Proceeding to payment page...\nThis would redirect to the payment gateway in a real implementation.');
+        }
+    
+        // Initial update
+        updateSummary();
+    </script>
+    
+</body>
+</html>

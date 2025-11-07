@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Room - <%=hoteldata.name%> Hotel</title>
+    <link rel="stylesheet" href="/output.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <h1 class="text-3xl font-playfair font-bold text-amber-800"><%=hoteldata.name%></h1>
+                    <span class="ml-4 text-gray-600">| Room Management</span>
+                </div>
+                <a href="/admin#rooms" class="text-gray-700 hover:text-amber-800 transition flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    Back 
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-5xl mx-auto px-4 py-8">
+        
+        <!-- Header -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-playfair font-bold text-gray-900 mb-2">Update Room Details</h2>
+            <p class="text-gray-600">Edit room information and update availability status</p>
+        </div>
+
+        <!-- Update Room Form -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+            <form id="updateRoomForm" method="post" action="/updateroom/<%=roomdata.room_id%>">
+                
+                <!-- Room ID Section (Read-only) -->
+                <div class="mb-8 bg-gray-50 border-l-4 border-amber-800 p-4 rounded">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-1">Room ID</label>
+                            <input type="text" id="room_id" value="<%= roomdata.room_id%>" class="bg-gray-100 px-4 py-2 border border-gray-300 rounded-lg text-gray-900 font-bold" readonly>
+                            <p class="text-sm text-gray-500 mt-1">This field cannot be modified</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-600">Last Updated</p>
+                            <p class="text-gray-900 font-semibold">Nov 07, 2024 10:30 AM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Basic Information Section -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-playfair font-bold text-gray-900 mb-6 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                        Basic Room Information
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Room Name -->
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Room Name *</label>
+                            <input name="room_name" type="text" id="room_name" value="<%=roomdata.room_name%>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" placeholder="Enter room name" required>
+                        </div>
+
+                        <!-- Price -->
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Price per Night (<%= hoteldata.currency%>) *</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-3 text-gray-600 font-bold"><%=hoteldata.currency%></span>
+                                <input name="price" type="number" id="price" value="<%=roomdata.price%>" min="0" step="0.01" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" placeholder="0.00" required>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <!-- Room Description -->
+                    <div class="mt-6">
+                        <label class="block text-gray-700 font-medium mb-2">Room Description *</label>
+                        <textarea name="room_des" id="room_des" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" placeholder="Enter detailed room description..." required><%=roomdata.room_des%></textarea>
+                        <p class="text-sm text-gray-500 mt-1">Provide a detailed description of the room features and amenities</p>
+                    </div>
+                </div>
+
+                <!-- Status Management Section -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-playfair font-bold text-gray-900 mb-6 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Room Status & Availability
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Status -->
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Room Status *</label>
+                            <select name="status" id="status" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" required>
+                                <option value="Active" selected>Active</option>
+                                <option value="Maintenance">Under Maintenance</option>
+                                <option value="Cleaning">Cleaning in Progress</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Renovation">Under Renovation</option>
+                            </select>
+                            <p class="text-sm text-gray-500 mt-1">Current operational status of the room</p>
+                        </div>
+
+                        <!-- Availability -->
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Availability *</label>
+                            <select name="availability" id="availability" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" required>
+                                <option value="Available" <%= roomdata.availability=='Available'?'selected':''%>>Available</option>
+                                <option value="Unavailable" <%= roomdata.availability=='Unavailable'?'selected':''%>>Unavailable</option>
+                            </select>
+                            <p class="text-sm text-gray-500 mt-1">Current booking availability</p>
+                        </div>
+                    </div>
+
+                    <!-- Status Info Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                        <div id="statusCard" class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-green-700 font-medium">Status</p>
+                                    <p class="text-lg font-bold text-green-900">Active</p>
+                                </div>
+                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div id="availabilityCard" class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-blue-700 font-medium">Availability</p>
+                                    <p class="text-lg font-bold text-blue-900">Available</p>
+                                </div>
+                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-purple-700 font-medium">Total Bookings</p>
+                                    <p class="text-lg font-bold text-purple-900">23</p>
+                                </div>
+                                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Room Images Section -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-playfair font-bold text-gray-900 mb-6 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        Room Images
+                    </h3>
+
+                    <!-- Current Image Preview -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Current Room Image</label>
+                        <div class="border-2 border-gray-300 rounded-lg p-4">
+                            <img id="currentImagePreview" src="<%=roomdata.room_img%>" alt="Room" class="w-full max-h-96 object-cover rounded-lg">
+                            <p class="text-sm text-gray-500 mt-2">Current image URL: <span id="currentImageUrl"><%=roomdata.room_img%></span></p>
+                        </div>
+                    </div>
+
+                    <!-- Image URL Input -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Room Image URL *</label>
+                        <input type="url" id="room_img" value="<%=roomdata.room_img%>" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200" placeholder="https://example.com/image.jpg" required>
+                        <p class="text-sm text-gray-500 mt-1">Enter the full URL of the room image</p>
+                    </div>
+
+                    
+                </div>
+
+                
+                
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                    
+                    <button type="button" onclick="window.history.back()" class="flex-1 bg-white border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-lg hover:bg-gray-50 transition font-semibold">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 bg-amber-800 text-white py-3 px-6 rounded-lg hover:bg-amber-900 transition font-semibold shadow-lg">
+                        Update Room
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Info Card -->
+        <div class="mt-6 bg-amber-50 border-l-4 border-amber-500 p-6 rounded-lg">
+            <h4 class="font-bold text-amber-900 mb-3 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Important Notes
+            </h4>
+            <ul class="text-amber-800 text-sm space-y-2">
+                <li>• Changes will be reflected immediately on the website</li>
+                <li>• Room ID cannot be modified once created</li>
+                <li>• Ensure image URLs are accessible and properly formatted</li>
+                <li>• Setting status to "Maintenance" will prevent new bookings</li>
+                <li>• Price changes will only affect future bookings</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Update status card when status dropdown changes
+        document.getElementById('status').addEventListener('change', function() {
+            const statusCard = document.getElementById('statusCard');
+            const value = this.value;
+            const statusText = this.options[this.selectedIndex].text;
+            
+            // Remove all color classes
+            statusCard.className = 'border rounded-lg p-4';
+            
+            // Add appropriate color based on status
+            switch(value) {
+                case 'active':
+                    statusCard.classList.add('bg-green-50', 'border-green-200');
+                    statusCard.querySelector('p.text-lg').className = 'text-lg font-bold text-green-900';
+                    statusCard.querySelector('p.text-sm').className = 'text-sm text-green-700 font-medium';
+                    statusCard.querySelector('svg').className = 'w-8 h-8 text-green-600';
+                    break;
+                case 'maintenance':
+                case 'cleaning':
+                    statusCard.classList.add('bg-yellow-50', 'border-yellow-200');
+                    statusCard.querySelector('p.text-lg').className = 'text-lg font-bold text-yellow-900';
+                    statusCard.querySelector('p.text-sm').className = 'text-sm text-yellow-700 font-medium';
+                    statusCard.querySelector('svg').className = 'w-8 h-8 text-yellow-600';
+                    break;
+                case 'inactive':
+                case 'renovation':
+                    statusCard.classList.add('bg-red-50', 'border-red-200');
+                    statusCard.querySelector('p.text-lg').className = 'text-lg font-bold text-red-900';
+                    statusCard.querySelector('p.text-sm').className = 'text-sm text-red-700 font-medium';
+                    statusCard.querySelector('svg').className = 'w-8 h-8 text-red-600';
+                    break;
+            }
+            
+            statusCard.querySelector('p.text-lg').textContent = statusText;
+        });
+
+        // Update availability card when availability dropdown changes
+        document.getElementById('availability').addEventListener('change', function() {
+            const availCard = document.getElementById('availabilityCard');
+            const value = this.value;
+            const availText = this.options[this.selectedIndex].text;
+            
+            // Remove all color classes
+            availCard.className = 'border rounded-lg p-4';
+            
+            // Add appropriate color based on availability
+            switch(value) {
+                case 'available':
+                    availCard.classList.add('bg-blue-50', 'border-blue-200');
+                    availCard.querySelector('p.text-lg').className = 'text-lg font-bold text-blue-900';
+                    availCard.querySelector('p.text-sm').className = 'text-sm text-blue-700 font-medium';
+                    availCard.querySelector('svg').className = 'w-8 h-8 text-blue-600';
+                    break;
+                case 'booked':
+                    availCard.classList.add('bg-orange-50', 'border-orange-200');
+                    availCard.querySelector('p.text-lg').className = 'text-lg font-bold text-orange-900';
+                    availCard.querySelector('p.text-sm').className = 'text-sm text-orange-700 font-medium';
+                    availCard.querySelector('svg').className = 'w-8 h-8 text-orange-600';
+                    break;
+                case 'unavailable':
+                    availCard.classList.add('bg-gray-50', 'border-gray-200');
+                    availCard.querySelector('p.text-lg').className = 'text-lg font-bold text-gray-900';
+                    availCard.querySelector('p.text-sm').className = 'text-sm text-gray-700 font-medium';
+                    availCard.querySelector('svg').className = 'w-8 h-8 text-gray-600';
+                    break;
+            }
+            
+            availCard.querySelector('p.text-lg').textContent = availText;
+        });
+
+        // Update image preview when URL changes
+        document.getElementById('room_img').addEventListener('input', function() {
+            const url = this.value;
+            if (url) {
+                document.getElementById('currentImagePreview').src = url;
+                document.getElementById('currentImageUrl').textContent = url;
+            }
+        });
+
+        // Handle image upload
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('currentImagePreview').src = e.target.result;
+                    // In real implementation, upload to server and get URL
+                    alert('Image uploaded successfully!\nIn production, this would upload to your server.');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission
+        document.getElementById('updateRoomForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = {
+                room_id: document.getElementById('room_id').value,
+                room_name: document.getElementById('room_name').value,
+                price: document.getElementById('price').value,
+                max: document.getElementById('max').value,
+                booked: document.getElementById('booked').value,
+                room_des: document.getElementById('room_des').value,
+                status: document.getElementById('status').value,
+                availability: document.getElementById('availability').value,
+                room_img: document.getElementById('room_img').value
+            };
+            
+            console.log('Form data:', formData);
+            
+            // Show success message
+            alert('Room updated successfully!\n\nRoom ID: ' + formData.room_id + '\nRoom Name: ' + formData.room_name + '\nPrice: $' + formData.price + '\n\nChanges have been saved to the database.');
+            
+            // In real application, send data to backend
+            // fetch('/api/rooms/update', { method: 'POST', body: JSON.stringify(formData) })
+        });
+
+        // Delete room function
+        function deleteRoom() {
+            const roomId = document.getElementById('room_id').value;
+            const roomName = document.getElementById('room_name').value;
+            
+            if (confirm('Are you sure you want to delete "' + roomName + '" (Room ID: ' + roomId + ')?\n\nThis action cannot be undone!')) {
+                alert('Room deleted successfully!\n\nRoom ID ' + roomId + ' has been removed from the system.');
+                // In real application: window.location.href = '/rooms';
+            }
+        }
+    </script>
+</body>
+</html>

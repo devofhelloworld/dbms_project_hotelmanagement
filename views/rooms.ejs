@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deluxe Suite - <%= hoteldata.name%> Hotel</title>
+    <link rel="stylesheet" href="./output.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gallery-img {
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <h1 class="text-3xl font-playfair font-bold text-amber-800"><%= hoteldata.name%></h1>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="/rooms" class="text-gray-700 hover:text-amber-800 transition">Rooms</a>
+                    <a href="/" class="text-gray-700 hover:text-amber-800 transition flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Breadcrumb -->
+        <div class="mb-6">
+            <nav class="flex text-sm">
+                <a href="#" class="text-gray-500 hover:text-amber-800">Home</a>
+                <span class="mx-2 text-gray-400">/</span>
+                <a href="#" class="text-gray-500 hover:text-amber-800">Rooms</a>
+                <span class="mx-2 text-gray-400">/</span>
+                <span class="text-gray-900 font-medium">Deluxe Suite</span>
+            </nav>
+        </div>
+
+        <!-- Room Gallery -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-8">
+            <!-- Main Image -->
+            <div class="lg:col-span-3">
+                <div class="relative h-96 lg:h-[600px] rounded-2xl overflow-hidden shadow-xl">
+                    <img id="mainImage" src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=1200&q=80" 
+                         alt="Deluxe Suite" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute bottom-4 right-4">
+                        <button class="bg-white px-4 py-2 rounded-lg shadow-lg flex items-center space-x-2 hover:bg-gray-100 transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <span class="font-medium">View All Photos</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thumbnail Gallery -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="h-36 rounded-xl overflow-hidden shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&q=80" 
+                         alt="Room View 1" 
+                         class="w-full h-full object-cover gallery-img"
+                         onclick="changeMainImage(this.src)">
+                </div>
+                <div class="h-36 rounded-xl overflow-hidden shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&q=80" 
+                         alt="Room View 2" 
+                         class="w-full h-full object-cover gallery-img"
+                         onclick="changeMainImage(this.src)">
+                </div>
+                <div class="h-36 rounded-xl overflow-hidden shadow-lg cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&q=80" 
+                         alt="Room View 3" 
+                         class="w-full h-full object-cover gallery-img"
+                         onclick="changeMainImage(this.src)">
+                </div>
+                <div class="h-36 rounded-xl overflow-hidden shadow-lg cursor-pointer relative">
+                    <img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=400&q=80" 
+                         alt="Room View 4" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">+8 More</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Details Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left Column - Main Details -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Title & Rating -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h1 class="text-4xl font-playfair font-bold text-gray-900 mb-2">Deluxe Suite</h1>
+                            <p class="text-gray-600 text-lg">Premium room with ocean view</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="flex items-center mb-2">
+                                <svg class="w-6 h-6 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                </svg>
+                                <span class="ml-2 text-2xl font-bold text-gray-900">4.9</span>
+                            </div>
+                            <p class="text-gray-600 text-sm">286 reviews</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-4 gap-4 py-4 border-t border-gray-200">
+                        <div class="text-center">
+                            <svg class="w-8 h-8 mx-auto text-amber-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                            </svg>
+                            <p class="text-sm font-medium text-gray-900">450 sq ft</p>
+                            <p class="text-xs text-gray-600">Room Size</p>
+                        </div>
+                        <div class="text-center">
+                            <svg class="w-8 h-8 mx-auto text-amber-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            <p class="text-sm font-medium text-gray-900">2 Guests</p>
+                            <p class="text-xs text-gray-600">Max Occupancy</p>
+                        </div>
+                        <div class="text-center">
+                            <svg class="w-8 h-8 mx-auto text-amber-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+                            </svg>
+                            <p class="text-sm font-medium text-gray-900">King Bed</p>
+                            <p class="text-xs text-gray-600">Bed Type</p>
+                        </div>
+                        <div class="text-center">
+                            <svg class="w-8 h-8 mx-auto text-amber-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                            </svg>
+                            <p class="text-sm font-medium text-gray-900">Ocean View</p>
+                            <p class="text-xs text-gray-600">View Type</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-4">Room Description</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Experience luxury and comfort in our elegantly designed Deluxe Suite. This spacious room features contemporary furnishings, a plush king-size bed, and stunning ocean views from your private balcony. Perfect for couples seeking a romantic getaway or business travelers desiring comfort and style.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        The suite includes a separate seating area, a marble bathroom with a rainfall shower, premium amenities, and state-of-the-art technology including a smart TV and high-speed WiFi. Floor-to-ceiling windows flood the space with natural light while offering breathtaking views of the coastline.
+                    </p>
+                </div>
+
+                <!-- Amenities -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Room Amenities</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Bedroom Features -->
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-3 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                                </svg>
+                                Bedroom Features
+                            </h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Complimentary bottled water
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    24-hour room service
+                                </li>
+                                <li class="flex items-center">
+                                    <svg class="w-4 h-4 mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Welcome fruit basket
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hotel Policies -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Hotel Policies</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-amber-800 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-1">Check-in / Check-out</h3>
+                                <p class="text-gray-700">Check-in: 3:00 PM | Check-out: 11:00 AM</p>
+                                <p class="text-sm text-gray-600 mt-1">Early check-in and late check-out subject to availability</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-amber-800 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-1">Cancellation Policy</h3>
+                                <p class="text-gray-700">Free cancellation up to 24 hours before check-in</p>
+                                <p class="text-sm text-gray-600 mt-1">Cancellations made within 24 hours will be charged 50% of the booking amount</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-amber-800 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-1">Payment Information</h3>
+                                <p class="text-gray-700">Full payment required at booking</p>
+                                <p class="text-sm text-gray-600 mt-1">We accept all major credit cards and digital payments</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-red-600 mr-3 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+                            </svg>
+                            <div>
+                                <h3 class="font-bold text-gray-900 mb-1">Restrictions</h3>
+                                <p class="text-gray-700">Non-smoking room</p>
+                                <p class="text-sm text-gray-600 mt-1">Pets not allowed | Smoking areas available on designated floors</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guest Reviews -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-playfair font-bold text-gray-900 mb-6">Guest Reviews</h2>
+                    
+                    <!-- Rating Summary -->
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-amber-800">4.9</div>
+                            <div class="flex justify-center my-2">
+                                <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                </svg>
+                            </div>
+                            <p class="text-sm text-gray-600">Overall</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">4.8</div>
+                            <p class="text-sm text-gray-600 mt-2">Cleanliness</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">5.0</div>
+                            <p class="text-sm text-gray-600 mt-2">Comfort</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">4.9</div>
+                            <p class="text-sm text-gray-600 mt-2">Service</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-gray-900">4.7</div>
+                            <p class="text-sm text-gray-600 mt-2">Value</p>
+                        </div>
+                    </div>
+
+                    <!-- Individual Reviews -->
+                    <div class="space-y-6">
+                        <div class="border-t pt-6">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center">
+                                    <img src="https://ui-avatars.com/api/?name=Sarah+Johnson&size=48" class="w-12 h-12 rounded-full mr-3">
+                                    <div>
+                                        <h4 class="font-bold text-gray-900">Sarah Johnson</h4>
+                                        <p class="text-sm text-gray-600">Verified Guest • Nov 2024</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                    </svg>
+                                    <span class="ml-1 font-bold">5.0</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed">
+                                Absolutely stunning room with breathtaking ocean views! The bed was incredibly comfortable, and the bathroom was luxurious. Staff was attentive and friendly. Would definitely stay here again.
+                            </p>
+                            <div class="flex items-center mt-3 text-sm text-gray-600">
+                                <button class="mr-4 hover:text-amber-800">
+                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                                    </svg>
+                                    Helpful (23)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="border-t pt-6">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center">
+                                    <img src="https://ui-avatars.com/api/?name=Rahul+Sharma&size=48" class="w-12 h-12 rounded-full mr-3">
+                                    <div>
+                                        <h4 class="font-bold text-gray-900">Rahul Sharma</h4>
+                                        <p class="text-sm text-gray-600">Verified Guest • Oct 2024</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                    </svg>
+                                    <span class="ml-1 font-bold">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 leading-relaxed">
+                                Perfect room for a romantic getaway. The private balcony was our favorite spot. Great amenities and the room service was prompt. Highly recommend for couples!
+                            </p>
+                            <div class="flex items-center mt-3 text-sm text-gray-600">
+                                <button class="mr-4 hover:text-amber-800">
+                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                                    </svg>
+                                    Helpful (18)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="mt-6 w-full py-3 border-2 border-amber-800 text-amber-800 rounded-lg hover:bg-amber-50 transition font-semibold">
+                        View All 286 Reviews
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Right Column - Booking Card -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-lg p-6 sticky top-24">
+                    <div class="mb-6">
+                        <div class="flex items-baseline mb-2">
+                            <span class="text-4xl font-bold text-amber-800"><%=hoteldata.currency%>3000</span>
+                            <span class="text-gray-600 ml-2">/ night</span>
+                        </div>
+                        <p class="text-sm text-gray-600">Excludes taxes & fees</p>
+                    </div>
+
+                    <!-- Date Selection -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Check-in</label>
+                        <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Check-out</label>
+                        <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200">
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Guests</label>
+                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200">
+                            <option>1 Guest</option>
+                            <option selected>2 Guests</option>
+                        </select>
+                    </div>
+
+                    <!-- Price Breakdown -->
+                    <div class="border-t border-gray-200 pt-4 mb-6">
+                        <div class="flex justify-between text-gray-700 mb-2">
+                            <span><%=hoteldata.currency%>3000 × 3 nights</span>
+                            <span><%=hoteldata.currency%>9000</span>
+                        </div>
+                        <div class="flex justify-between text-gray-700 mb-2">
+                            <span>Service fee</span>
+                            <span><%=hoteldata.currency%>450</span>
+                        </div>
+                        <div class="flex justify-between text-gray-700 mb-4">
+                            <span>Taxes</span>
+                            <span><%=hoteldata.currency%>670</span>
+                        </div>
+                        <div class="flex justify-between items-center border-t border-gray-200 pt-4">
+                            <span class="font-bold text-gray-900">Total</span>
+                            <span class="text-2xl font-bold text-amber-800"><%=hoteldata.currency%>10120</span>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-amber-800 text-white py-4 rounded-lg hover:bg-amber-900 transition font-semibold shadow-lg mb-4">
+                        Reserve Now
+                    </button>
+
+                    <p class="text-center text-sm text-gray-600 mb-4">You won't be charged yet</p>
+
+                    <!-- Quick Actions -->
+                    <div class="space-y-3">
+                        <button class="w-full flex items-center justify-center py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                            <svg class="w-5 h-5 mr-2 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                            <span class="font-medium">Save to Wishlist</span>
+                        </button>
+                        <button class="w-full flex items-center justify-center py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                            <svg class="w-5 h-5 mr-2 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                            </svg>
+                            <span class="font-medium">Share Room</span>
+                        </button>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <h3 class="font-bold text-gray-900 mb-3">Need Help?</h3>
+                        <div class="space-y-2 text-sm">
+                            <a href="tel:+15551234567" class="flex items-center text-gray-700 hover:text-amber-800">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                                <%=hoteldata.phone%>
+                            </a>
+                            <a href="mailto:info@royalstay.com" class="flex items-center text-gray-700 hover:text-amber-800">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <%=hoteldata.email%>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4 mt-12">
+        <div class="max-w-7xl mx-auto text-center">
+            <h3 class="text-2xl font-playfair font-bold mb-4"><%= hoteldata.name%></h3>
+            <p class="text-gray-400">Experience luxury and comfort in the heart of the city</p>
+        </div>
+    </footer>
+
+    <script>
+        // Change main image when thumbnail is clicked
+        function changeMainImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+
+        // Set minimum dates for check-in and check-out
+        const today = new Date().toISOString().split('T')[0];
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        dateInputs[0].setAttribute('min', today);
+        
+        dateInputs[0].addEventListener('change', function() {
+            const checkinDate = new Date(this.value);
+            checkinDate.setDate(checkinDate.getDate() + 1);
+            dateInputs[1].setAttribute('min', checkinDate.toISOString().split('T')[0]);
+        });
+    </script>
+</body>
+</html>

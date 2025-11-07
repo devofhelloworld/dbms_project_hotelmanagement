@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=hoteldata.name%> - Admin Dashboard</title>
+    <link rel="stylesheet" href="./output.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Dropdown styles - now controlled by JavaScript */
+        .dropdown-menu {
+            display: none;
+        }
+        
+        .dropdown-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 pt-20">
+    
+    <!-- Admin Navigation -->
+    <nav class="fixed w-full bg-white shadow-md z-50 border-b-2 border-amber-800 top-0">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Left Section: Logo & Quick Menu Toggle -->
+                <div class="flex items-center space-x-4">
+                    <!-- Mobile Sidebar Toggle -->
+                    <button class="text-gray-700 md:hidden hover:text-amber-800 lg:hidden">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <h1 class="text-2xl md:text-3xl font-playfair font-bold text-amber-800"><%=hoteldata.name%></h1>
+                        <span class="ml-3 px-2 py-1 bg-amber-800 text-white text-xs rounded-full font-medium">ADMIN</span>
+                    </div>
+                </div>
+
+                <!-- Center Section: Search Bar (Hidden on small screens) -->
+                <div class="hidden md:flex flex-1 max-w-2xl mx-8">
+                    <div class="relative w-full">
+                        <input 
+                            type="text" 
+                            placeholder="Search bookings, guests, rooms..." 
+                            class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800 focus:ring-2 focus:ring-amber-200 transition"
+                        >
+                        <svg class="w-5 h-5 text-gray-400 absolute left-4 top-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Right Section: Actions & Profile -->
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    
+                    <!-- Search Icon (Mobile Only) -->
+                    <button id="mobileSearchBtn" class="md:hidden p-2 text-gray-600 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Quick Add Button -->
+                    <a href="/book" target="_blank"><button class="hidden md:flex items-center space-x-2 bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-900 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                        <span class="font-medium">New Booking</span>
+                    </button></a>
+
+                    <!-- Notifications Dropdown -->
+                    <div class="relative dropdown" id="notificationsDropdown">
+                        <button class="dropdown-toggle relative p-2 text-gray-600 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                            </svg>
+                            <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">3</span>
+                        </button>
+                        
+                        <!-- Notifications Dropdown Menu -->
+                        <div class="dropdown-menu absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden">
+                            <div class="bg-amber-800 text-white px-4 py-3 flex justify-between items-center">
+                                <h3 class="font-semibold">Notifications</h3>
+                                <span class="bg-amber-900 text-xs px-2 py-1 rounded-full">3 New</span>
+                            </div>
+                            <div class="max-h-96 overflow-y-auto">
+                                <!-- Notification Item -->
+                                <a href="#booking-123" class="block px-4 py-3 border-b border-gray-100 hover:bg-amber-50 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="bg-blue-100 p-2 rounded-lg mr-3">
+                                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900">New Booking Received</p>
+                                            <p class="text-xs text-gray-600 mt-1">John Doe booked Presidential Suite</p>
+                                            <p class="text-xs text-gray-400 mt-1">2 minutes ago</p>
+                                        </div>
+                                    </div>
+                                </a>
+                                
+                                <a href="#maintenance-203" class="block px-4 py-3 border-b border-gray-100 hover:bg-amber-50 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="bg-yellow-100 p-2 rounded-lg mr-3">
+                                            <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900">Maintenance Required</p>
+                                            <p class="text-xs text-gray-600 mt-1">Room 203 needs attention</p>
+                                            <p class="text-xs text-gray-400 mt-1">15 minutes ago</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="#payment-456" class="block px-4 py-3 border-b border-gray-100 hover:bg-amber-50 cursor-pointer transition">
+                                    <div class="flex items-start">
+                                        <div class="bg-green-100 p-2 rounded-lg mr-3">
+                                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-sm font-medium text-gray-900">Payment Received</p>
+                                            <p class="text-xs text-gray-600 mt-1">$2,697 from Sarah Smith</p>
+                                            <p class="text-xs text-gray-400 mt-1">1 hour ago</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="px-4 py-3 bg-gray-50 text-center">
+                                <a href="#notifications" class="text-sm text-amber-800 hover:text-amber-900 font-medium">View All Notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Messages Icon -->
+                    <button class="hidden md:block relative p-2 text-gray-600 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+                        </svg>
+                        <span class="absolute top-0 right-0 bg-green-500 w-3 h-3 rounded-full border-2 border-white"></span>
+                    </button>
+
+                    <!-- Settings Icon -->
+                     <a href="/admin#settings">
+                    <button class="hidden md:block p-2 text-gray-600 hover:text-amber-800 hover:bg-amber-50 rounded-lg transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </button></a>
+
+                    <!-- Divider -->
+                    <div class="hidden md:block h-8 w-px bg-gray-300"></div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="relative dropdown" id="profileDropdown">
+                        <button class="dropdown-toggle flex items-center space-x-3 p-2 hover:bg-amber-50 rounded-lg transition">
+                            <img 
+                                src="https://ui-avatars.com/api/?name=<%=admin.fname%>+<%=admin.lname%>&background=92400e&color=fff" 
+                                alt="Admin Profile" 
+                                class="w-10 h-10 rounded-full border-2 border-amber-800"
+                            >
+                            <div class="hidden md:block text-left">
+                                <p class="text-sm font-semibold text-gray-900"><%=admin.fname%> <%=admin.lname%></p>
+                                <p class="text-xs text-gray-600">Administrator</p>
+                            </div>
+                            <svg class="hidden md:block w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+
+                        <!-- Profile Dropdown Menu -->
+                        <div class="dropdown-menu absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-2xl border border-gray-200 overflow-hidden">
+                            <div class="px-4 py-3 border-b border-gray-200 bg-amber-50">
+                                <p class="text-sm font-semibold text-gray-900">Hotel Manager</p>
+                                <p class="text-xs text-gray-600"><%= admin.email%></p>
+                            </div>
+                            <div class="py-2">
+                                <a href="#profile" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 transition">
+                                    <svg class="w-5 h-5 mr-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                    My Profile
+                                </a>
+                                <a href="#dashboard" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 transition">
+                                    <svg class="w-5 h-5 mr-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                    </svg>
+                                    Dashboard
+                                </a>
+                                <a href="#settings" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 transition">
+                                    <svg class="w-5 h-5 mr-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    Settings
+                                </a>
+                                <a href="#help" class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-amber-50 transition">
+                                    <svg class="w-5 h-5 mr-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    Help & Support
+                                </a>
+                            </div>
+                            <div class="border-t border-gray-200">
+                                <a href="/adminlogout" class="flex items-center w-full px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition">
+                                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                    </svg>
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar (Toggle) -->
+        <div class="lg:hidden px-4 pb-4 hidden" id="mobileSearch">
+            <div class="relative">
+                <input 
+                    type="text" 
+                    placeholder="Search bookings, guests, rooms..." 
+                    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-amber-800"
+                >
+                <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle all dropdowns with click
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                
+                if (toggle && menu) {
+                    // Toggle dropdown on click
+                    toggle.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        
+                        // Close other dropdowns
+                        dropdowns.forEach(otherDropdown => {
+                            if (otherDropdown !== dropdown) {
+                                const otherMenu = otherDropdown.querySelector('.dropdown-menu');
+                                if (otherMenu) {
+                                    otherMenu.classList.remove('active');
+                                }
+                            }
+                        });
+                        
+                        // Toggle current dropdown
+                        menu.classList.toggle('active');
+                    });
+                    
+                    // Prevent dropdown from closing when clicking inside
+                    menu.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                }
+            });
+            
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function() {
+                dropdowns.forEach(dropdown => {
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Mobile search toggle
+            const mobileSearchBtn = document.getElementById('mobileSearchBtn');
+            const mobileSearch = document.getElementById('mobileSearch');
+            
+            if (mobileSearchBtn && mobileSearch) {
+                mobileSearchBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    mobileSearch.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+

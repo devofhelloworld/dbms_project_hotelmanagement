@@ -1,0 +1,24 @@
+{
+  "name": "royal_stay",
+  "version": "1.0.0",
+  "description": "DBMS project",
+  "license": "ISC",
+  "author": "Sujay Kumar Singh",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js & npx @tailwindcss/cli -i ./views/input.css -o ./public/output.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.16",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "mysql2": "^3.15.3",
+    "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
